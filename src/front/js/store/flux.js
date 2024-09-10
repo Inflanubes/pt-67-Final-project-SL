@@ -195,7 +195,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 			
 				try {
-					const response = await fetch("https://westeurope.api.cognitive.microsoft.com/customvision/v3.0/Prediction/4a0d1a7e-a87e-43e2-838c-3eec869f5aeb/classify/iterations/Iteration4/url", requestOptions);
+					const response = await fetch(process.env.AZURE_URL, requestOptions);
 			
 					if (!response.ok) {
 						throw new Error(`HTTP error! Status: ${response.status}`);
