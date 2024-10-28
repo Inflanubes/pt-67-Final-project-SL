@@ -17,7 +17,7 @@
 .login-container form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 300px;
 }
 
@@ -69,6 +69,7 @@
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 20px;
+    
 }
 
 .login-container span:hover {
@@ -81,4 +82,7 @@
 }
 .register-button{
     text-align: center;
+}
+form {
+    align-items: flex-start;
 }

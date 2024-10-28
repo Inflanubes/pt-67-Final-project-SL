@@ -218,9 +218,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const probabilityThreshold = 0.90;
 
 					// Read predictions
-					data.predictions.forEach(prediction => {
-						if (prediction.probability > probabilityThreshold) {
-							// Check and update best tag for bicycle category
+					data.predictions.forEach(prediction => { //forEach recorre el array
+						if (prediction.probability > probabilityThreshold) { // se verifica si la probabilidad es superior al umbral 
+							// Check and update best tag for bicycle category, confirmamos si contiene las palabras kona o santa cruz y lo convierte a minusculas (tolowerCase)
 							if (prediction.tagName.toLowerCase().includes('santa cruz') || prediction.tagName.toLowerCase().includes('kona')) {
 								if (prediction.probability > bestTags['bicycle'].probability) {
 									bestTags['bicycle'] = prediction;
@@ -299,19 +299,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 
 				const data = await response.json();
-
-				// const data = await response.json();
-
-                // if (response.ok) {
-                //     setStore({ riderPhoto: data.data || [] }); // Asegúrate de que 'data.data' es un array
-                //     return data.data;
-                // } else {
-                //     console.log(data.msg);
-                //     setStore({ riderPhoto: [] });
-                //     localStorage.setItem("riderPhoto", JSON.stringify(data.data));
-
-                //     console.log("getRider url", data.data)
-                //     console.log("riderPhoto url", store.data)
 
 
 				if (response.ok) {

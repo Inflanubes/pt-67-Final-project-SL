@@ -1,3 +1,12 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+.big-shoulders-display {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
