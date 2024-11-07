@@ -4,7 +4,7 @@ import { Context } from '../store/appContext';
 import "../../styles/login.css";
 
 const login = () => {
-    const { actions } = useContext(Context)
+    const { actions, store } = useContext(Context)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -17,6 +17,7 @@ const login = () => {
         if (logged) {
             navigate(logged.additional_claims?.role === 'Rider' ? '/rider' : '/photographer');
             console.log("logged", logged)
+
         }
     }
     /* if user role photographer demo if role rider navigate demo*/
@@ -41,12 +42,12 @@ const login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">login</button>
-                <Link to="/register">
+                <button type="submit">Login</button>
+                {/*   <Link to="/register">
                     <span className="register-button btn btn-lg" href="#" role="button">
                         Register here if you are not a Banananer yet
                     </span>
-                </Link>
+                </Link> */}
             </form>
         </div>
     );

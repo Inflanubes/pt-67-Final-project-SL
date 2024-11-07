@@ -34,10 +34,11 @@ export const Navbar = () => {
 							<button className="btn btn-secondary">Demo</button>
 						</Link>
 					</div> */}
-					{(location.pathname !== "/login" && location.pathname !== "/register") && (store.token ?
-						<button className="navbar-button btn btn-lg" onClick={handleLogout}>LOGOUT</button> :
-						<button className="navbar-button" onClick={handleLogin}>LOGIN</button>
-					)}
+					{location.pathname === '/login' || location.pathname === '/register' ?
+						null :
+						store.token ? <button className="navbar-button btn btn-lg" onClick={handleLogout}>LOGOUT</button> :
+							<button className="navbar-button btn btn-lg" onClick={handleLogin}>LOGIN</button>
+					}
 
 				</div>
 			</div>

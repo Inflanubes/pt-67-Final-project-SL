@@ -17,7 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					price: "",
 					url: ""
 				}
-				],
+			],
 			riderPhoto: [
 				{
 					url: "",
@@ -60,7 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.setItem("user_id", data.additional_claims?.user_id);
 					//localStorage.setItem("role", data.additional_claims?.role);
 
-					
+
 
 					setStore({ token: data.access_token, user_id: data.additional_claims?.user_id })
 					console.log("data login", data)
@@ -83,7 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 		setStore({user: data.data})
 			// 		return
 			// 	} catch (error) {
-					
+
 			// 	}
 			// },
 			logout: async () => {
@@ -165,49 +165,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"helmet": helmet,
 						})
 					});
-			
+
 					const data = await response.json();
 					if (data && data.photo) {
 						localStorage.setItem("photo", JSON.stringify(data.photo));
 						setStore({ photo: data.photo });
 						console.log("datos bici", data.photo)
 					}
-			
+
 					return data;
 				} catch (error) {
 					console.error("Error uploading photo:", error);
 					return false;
 				}
 			},
-			
+
 			azurePredict: async (url) => {
 				const myHeaders = new Headers();
 				myHeaders.append("Prediction-Key", process.env.PREDICTION_KEY);
 				myHeaders.append("Content-Type", "application/json");
-			
+
 				const raw = JSON.stringify({ "Url": url });
-			
+
 				const requestOptions = {
 					method: "POST",
 					headers: myHeaders,
 					body: raw,
 					redirect: "follow"
 				};
-			
+
 				try {
 					const response = await fetch(process.env.AZURE_URL, requestOptions);
-			
+
 					if (!response.ok) {
 						throw new Error(`HTTP error! Status: ${response.status}`);
 					}
-			
+
 					const data = await response.json();
 					console.log("Azure response:", data);
-			
+
 					if (!data || !data.predictions) {
 						throw new Error("Respuesta de Azure malformada. Falta 'predictions'.");
 					}
-			
+
 					// Start values for each tag group
 					let bestTags = {
 						'bicycle': { tagName: "", probability: 0 },
@@ -263,15 +263,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// Log results
 					console.log('Store:', store);
 					console.log("helmet", getStore().helmet)
-					console.log("bicycle",getStore().bicycle)
+					console.log("bicycle", getStore().bicycle)
 
 					const azureData = {
-						bicycle : getStore().bicycle,
-						helmet : getStore().helmet
+						bicycle: getStore().bicycle,
+						helmet: getStore().helmet
 					};
 					// Return values find
 					return azureData;
-			
+
 				} catch (error) {
 					console.error("Error en azurePrediction:", error);
 					return null; // Return null if error
@@ -285,17 +285,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// const formData = new FormData()
 				// 	formData.append('user_id', user_id)
 				// 	console.log("user", user_id)
-				
-					let response = await fetch(process.env.BACKEND_URL + "api/photos/rider",{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							"Authorization": "Bearer " + token
-						},
-						body: JSON.stringify({
-							"bicycle": bicycle,
-							"helmet": helmet,
-						}),
+
+				let response = await fetch(process.env.BACKEND_URL + "api/photos/rider", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+					body: JSON.stringify({
+						"bicycle": bicycle,
+						"helmet": helmet,
+					}),
 				})
 
 				const data = await response.json();
@@ -306,7 +306,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.setItem("riderPhoto", JSON.stringify(data.data));
 
 					const fotoData = {
-						bicycle : getStore().riderPhoto,
+						bicycle: getStore().riderPhoto,
 					};
 					console.log(fotoData)
 

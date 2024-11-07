@@ -21,7 +21,6 @@
 }
 
 .photographer-container label {
-    font-family:Franklin Gothic Medium;
     text-shadow: 1px 1px 2px black;
     font-weight: 200;
     color: #fafaf9;
@@ -59,7 +58,6 @@
 }
 
 .loading{
-    font-family:   Franklin Gothic Medium; 
     text-shadow: 1px 1px 2px black;
     font-weight: 200;
     color: #fafaf9;
@@ -71,7 +69,6 @@
 }
 
 .photographer-container button {
-    font-family: Franklin Gothic Medium;
     width: 80%;
     padding: 10px;
     background-color: #1313137f;
@@ -93,7 +90,6 @@
 }
 
 .uploaded-image{
-    font-family:   Franklin Gothic Medium;
     text-shadow: 1px 1px 2px black;
     color: #fafaf9;
     font-weight: 100;

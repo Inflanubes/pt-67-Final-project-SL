@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../store/appContext';
 import "../../styles/rider.css";
+import { useNavigate } from "react-router-dom";
 
 export const Rider = () => {
     const { store, actions } = useContext(Context);
@@ -9,16 +9,24 @@ export const Rider = () => {
     const [helmet, setHelmet] = useState('');
     const [showButtons, setShowButtons] = useState(false);
 
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!store.token) {
+            navigate('/')
+        }
+    }, [])
+
     const handleGetRiderPhotos = async (e) => {
         e.preventDefault();
         const getPhotos = await actions.getRiderPhotos(bicycle, helmet);
 
         if (getPhotos) {
-            setShowButtons(true); 
+            setShowButtons(true);
             console.log("Photos retrieved:", getPhotos);
 
         } else {
-            setShowButtons(false); 
+            setShowButtons(false);
             console.log("No photos found");
         }
     };
@@ -34,7 +42,7 @@ export const Rider = () => {
         setShowButtons(false);
 
         actions.clearRiderPhotos();
-        
+
     };
 
     return (
@@ -61,10 +69,10 @@ export const Rider = () => {
 
             <div className="photos-container row">
                 {store.riderPhoto.map((item, index) => (
-                    <div className="card d-flex col-2 mx-5" key={index}>
+                    <div className="card d-flex col-2" key={index}>
                         <div className="rider-card">
                             <div className="rider-photo d-flex">
-                                <img src={item.url} alt="photo" className="rider-photo img-fluid w-100" />
+                                <img src={item.url} alt="photo" className="rider-photo" />
                             </div>
                             {showButtons && (
                                 <div className="carousel-button">
@@ -81,13 +89,13 @@ export const Rider = () => {
             <div className="">
                 <button className="rider-button" onClick={handleNextRider}>Find another rider!</button>
             </div>
-            
-    </div>
+
+        </div>
     );
 };
 
 
-            {/* <div id="photoCarousel" className="carousel-slide d-flex row">
+{/* <div id="photoCarousel" className="carousel-slide d-flex row">
                 <div className="carousel-inner d-flex col-3">
                     {store.riderPhoto.map((item, index) => (
                         <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
@@ -103,5 +111,5 @@ export const Rider = () => {
             </div> */}
 
 
- 
+
 
