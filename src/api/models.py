@@ -36,18 +36,18 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     name = db.Column(db.String(120), nullable=False)
-    firstname = db.Column(db.String(120), nullable=False)
+    surname = db.Column(db.String(120), nullable=False)
     role = db.Column(db.Enum(MyRoles), nullable=False, default = MyRoles.rider)
 
     def __repr__(self):
         return '<Users %r>' % self.id
     
-    def new_user(self, username, password, email, name, firstname, role):
+    def new_user(self, username, password, email, name, surname, role):
         self.username = username
         self.password = password
         self.email = email
         self.name = name
-        self.firstname = firstname
+        self.surname = surname
         self.role = role
         db.session.add(self)
         db.session.commit()
@@ -58,7 +58,7 @@ class User(db.Model):
             "email": self.email,
             "username": self.username,
             "name":self.name,
-            "firstname": self.firstname
+            "surname": self.surname
         }
 
 class Order(db.Model):

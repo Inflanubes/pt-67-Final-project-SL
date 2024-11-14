@@ -136,7 +136,7 @@ def register():
         password=hashed_password,
         username=request_body["username"],
         name = request_body["name"],
-        firstname = request_body["firstname"],
+        surname = request_body["surname"],
         role = request_body["role"]
     )
     db.session.add(user)

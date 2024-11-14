@@ -93,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: "" })
 			},
 
-			register: async (email, password, username, name, firstname, role) => {
+			register: async (email, password, username, name, surname, role) => {
 				try {
 					let response = await fetch(process.env.BACKEND_URL + "api/register", {
 						method: "POST",
@@ -105,7 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"password": password,
 							"username": username,
 							"name": name,
-							"firstname": firstname,
+							"surname": surname,
 							"role": role
 						})
 					})

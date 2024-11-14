@@ -9,7 +9,7 @@ const register = () => {
     const [password, setPassword] = useState('');
     const [username,setUsername] = useState('');
     const [name,setName] = useState('');
-    const [firstname,setFirstname] = useState('');
+    const [surname,setsurname] = useState('');
     const [role,setRole] = useState('');
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        const registered = await actions.register(email, password, username, name, firstname, role)
+        const registered = await actions.register(email, password, username, name, surname, role)
 
         if (registered){
             navigate(registered.role === 'Rider' ? '/rider' : '/photographer');
@@ -76,12 +76,12 @@ const register = () => {
                     />
                 </div>
                 <div className='tag-container'>
-                    <label htmlFor="firstname">Firstname:</label>
+                    <label htmlFor="surname">surname:</label>
                     <input
-                        type="firstname"
-                        id="firstname"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
+                        type="surname"
+                        id="surname"
+                        value={surname}
+                        onChange={(e) => setsurname(e.target.value)}
                     />
                 </div>
                 <button type="submit">Register</button>

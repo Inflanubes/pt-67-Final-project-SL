@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('password', sa.String(length=200), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('name', sa.String(length=120), nullable=False),
-    sa.Column('firstname', sa.String(length=120), nullable=False),
+    sa.Column('surname', sa.String(length=120), nullable=False),
     sa.Column('role', sa.Enum('photographer', 'rider', 'admin', name='myroles'), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
