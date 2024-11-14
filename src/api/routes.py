@@ -42,7 +42,9 @@ def predict_image():
     data = request.get_json()
     image_path = data.get('image_path')
     run_prediction(image_path)
-    return jsonify({"msg": "Prediction completed"}), 200
+    response = jsonify({"msg": "Prediction completed"})
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response, 200
 
 # Example of other existing routes
 
