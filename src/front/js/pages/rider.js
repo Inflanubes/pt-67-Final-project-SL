@@ -40,9 +40,7 @@ export const Rider = () => {
         setBicycle('');
         setHelmet('');
         setShowButtons(false);
-
         actions.clearRiderPhotos();
-
     };
 
     return (
@@ -52,16 +50,32 @@ export const Rider = () => {
                     <label htmlFor="bicycle">Bicycle:</label>
                     <select id="bicycle" value={bicycle} onChange={(e) => setBicycle(e.target.value)}>
                         <option value="">Which Bike is sending it?</option>
-                        <option value="santa_Cruz">Santa Cruz</option>
-                        <option value="kona">Kona</option>
+                        <option value="santaCruz">Santa Cruz Nomad 4</option>
+                        <option value="scNomad4Arena">Santa Cruz Nomad 4 Arena</option>
+                        <option value="kona">Kona Process 153</option>
+                        <option value="canyon">Canyon</option>
+                        <option value="orbeaRallon">Orbea Rallon Morado-Azul</option>
+                        <option value="summun21">Mondraker Summun 21</option>
+                        <option value="cannondaleJekyll2">Canondale Jekyll 2</option>
+                        <option value="trekSession">Trek Session</option>
+                        <option value="comSupV5">Commencal Supremme V5</option>
+                        <option value="customBike">Custom bike</option>
                     </select>
                 </div>
                 <div className='tag-container'>
                     <label htmlFor="helmet">Helmet:</label>
                     <select id="helmet" value={helmet} onChange={(e) => setHelmet(e.target.value)}>
                         <option value="">Which Helmet protects our Bananer?</option>
-                        <option value="scott">Scott</option>
-                        <option value="troyLee">TroyLee</option>
+                        <option value="scott">Scott Spartan</option>
+                        <option value="troyLeeStage">Troy Lee Stage</option>
+                        <option value="bluegrassLegit">Bluegrass Legit</option>
+                        <option value="bluegrassLegitWhiteIris">Bluegrass Legit White Iridiscent</option>
+                        <option value="rampage">Fox Rampage Azul</option>
+                        <option value="rampagePro">Fox Rampage Pro Carbon</option>
+                        <option value="rampageCustomIbai">Fox Rampage Custom Ibai Rider</option>
+                        <option value="pocCoron">Poc Coron Air Negro</option>
+                        <option value="cienStatus">100% Status Negro</option>
+                        <option value="customHelmet">Custom helmet</option>
                     </select>
                 </div>
                 <button type="submit">Find me!</button>

@@ -20,7 +20,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<nav className="navbar p-3" style={{ backgroundColor: 'rgb(255, 255, 255);' }}>
+		<nav className="navbar p-3" style={{ backgroundColor: 'rgb(255, 255, 255)'}}>
 			<div className="navbar-container">
 				<div className="navbar-container-left">
 					<Link to="/">

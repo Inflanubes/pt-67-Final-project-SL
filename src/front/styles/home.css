@@ -68,17 +68,18 @@ footer {
     object-position: bottom;
     align-items: center;
     text-align: center;
-    justify-content: right;
-    
+    justify-content: right;  
 }
 
 .landing-logo{
     display: flex;
     flex-direction: row;
 }
+
 .landing-banana{
     height: 80px;
 }
+
 .landing-contianer-right{
     image-orientation:from-image ;
     width: 100%;

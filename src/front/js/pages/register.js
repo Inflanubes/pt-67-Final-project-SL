@@ -11,13 +11,16 @@ const register = () => {
     const [name,setName] = useState('');
     const [surname,setsurname] = useState('');
     const [role,setRole] = useState('');
+    const [bike,setBike] = useState('');
+    const [helmet,setHelmet] = useState('');
+
     const navigate = useNavigate();
 
     const registerInputLength = store.registerInputLength
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        const registered = await actions.register(email, password, username, name, surname, role)
+        const registered = await actions.register(email, password, username, name, surname, role, bike, helmet)
 
         if (registered){
             navigate(registered.role === 'Rider' ? '/rider' : '/photographer');
@@ -76,13 +79,44 @@ const register = () => {
                     />
                 </div>
                 <div className='tag-container'>
-                    <label htmlFor="surname">surname:</label>
+                    <label htmlFor="surname">Surname:</label>
                     <input
                         type="surname"
                         id="surname"
                         value={surname}
                         onChange={(e) => setsurname(e.target.value)}
                     />
+                </div>
+                <div className='tag-container'>
+                    <label htmlFor="role">Bike:</label>
+                    <select id="bike" type="bike" value={bike} onChange={(e) => setBike(e.target.value)}>
+                        <option value="">Wich Bike is sending it?</option>
+                        <option value="santaCruz">Santa Cruz Nomad 4</option>
+                        <option value="scNomad4Arena">Santa Cruz Nomad 4 Arena</option>
+                        <option value="kona">Kona Process 153</option>
+                        <option value="orbeaRallon">Orbea Rallon Morado-Azul</option>
+                        <option value="summun21">Mondraker Summun 21</option>
+                        <option value="cannondaleJekyll2">Canondale Jekyll 2</option>
+                        <option value="trekSession">Trek Session</option>
+                        <option value="comSupV5">Commencal Supremme V5</option>
+                        <option value="customBike">Custom bike</option>
+                    </select>
+                </div>
+                <div className='tag-container'>
+                    <label htmlFor="role">Helmet:</label>
+                    <select id="helmet" type="helmet" value={helmet} onChange={(e) => setHelmet(e.target.value)}>
+                        <option value="">Wich Helmet protects our Bananer?</option>
+                        <option value="scott">Scott Spartan</option>
+                        <option value="troyLeeStage">Troy Lee Stage</option>
+                        <option value="bluegrassLegit">Bluegrass Legit</option>
+                        <option value="bluegrassLegitWhiteIris">Bluegrass Legit White Iridiscent</option>
+                        <option value="rampage">Fox Rampage Azul</option>
+                        <option value="rampagePro">Fox Rampage Pro Carbon</option>
+                        <option value="rampageCustomIbai">Fox Rampage Custom Ibai Rider</option>
+                        <option value="pocCoron">Poc Coron Air Negro</option>
+                        <option value="cienStatus">100% Status Negro</option>
+                        <option value="customHelmet">Custom helmet</option>
+                    </select>
                 </div>
                 <button type="submit">Register</button>
                 <Link to="/login">

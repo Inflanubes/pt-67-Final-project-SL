@@ -67,8 +67,7 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-bottom: 20px;
-    
+    margin-bottom: 20px; 
 }
 
 .login-container span:hover {

@@ -55,16 +55,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					})
 
-					const data = await response.json()
-					localStorage.setItem("token", data.access_token);
-					localStorage.setItem("user_id", data.additional_claims?.user_id);
-					//localStorage.setItem("role", data.additional_claims?.role);
+					if (!response.ok) throw new Error("Login failed");
 
-
-
-					setStore({ token: data.access_token, user_id: data.additional_claims?.user_id })
-					console.log("data login", data)
-
+					const data = await response.json();
+					if (data.access_token) {
+						localStorage.setItem("token", data.access_token);
+						localStorage.setItem("user_id", data.additional_claims?.user_id);
+						//localStorage.setItem("role", data.additional_claims?.role);
+						setStore({ token: data.access_token, user_id: data.additional_claims?.user_id });
+						console.log("data login", data)
+					}
 					return data
 
 				} catch (error) {
@@ -184,99 +184,170 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const myHeaders = new Headers();
 				myHeaders.append("Prediction-Key", process.env.PREDICTION_KEY);
 				myHeaders.append("Content-Type", "application/json");
-
+			
 				const raw = JSON.stringify({ "Url": url });
-
+			
 				const requestOptions = {
 					method: "POST",
 					headers: myHeaders,
 					body: raw,
 					redirect: "follow"
 				};
-
+			
 				try {
 					const response = await fetch(process.env.AZURE_URL, requestOptions);
-
+			
 					if (!response.ok) {
 						throw new Error(`HTTP error! Status: ${response.status}`);
 					}
-
+			
 					const data = await response.json();
 					console.log("Azure response:", data);
-
+			
 					if (!data || !data.predictions) {
 						throw new Error("Respuesta de Azure malformada. Falta 'predictions'.");
 					}
-
-					// Start values for each tag group
-					let bestTags = {
-						'bicycle': { tagName: "", probability: 0 },
-						'helmet': { tagName: "", probability: 0 }
+			
+					// Filtrar predicciones para bicicletas y cascos
+					const bikePredictions = data.predictions.filter(prediction => 
+						prediction.tagName.toLowerCase().includes('Bike')
+					);
+					const helmetPredictions = data.predictions.filter(prediction => 
+						prediction.tagName.toLowerCase().includes('Helmet')
+					);
+			
+					// Función para obtener el elemento con mayor probabilidad
+					const getHighestPrediction = (predictions) => {
+						if (predictions.length === 0) return { tagName: "Custom", probability: 0 };
+						return predictions.reduce((best, current) => 
+							current.probability > best.probability ? current : best
+						);
 					};
-
-					// Threshold for probability
-					const probabilityThreshold = 0.90;
-
-					// Read predictions
-					data.predictions.forEach(prediction => { //forEach recorre el array
-						if (prediction.probability > probabilityThreshold) { // se verifica si la probabilidad es superior al umbral 
-							// Check and update best tag for bicycle category, confirmamos si contiene las palabras kona o santa cruz y lo convierte a minusculas (tolowerCase)
-							if (prediction.tagName.toLowerCase().includes('santa cruz') || prediction.tagName.toLowerCase().includes('kona')) {
-								if (prediction.probability > bestTags['bicycle'].probability) {
-									bestTags['bicycle'] = prediction;
-								}
-							}
-
-							// Check and update best tag for helmet category
-							if (prediction.tagName.toLowerCase().includes('scott') || prediction.tagName.toLowerCase().includes('troy lee')) {
-								if (prediction.probability > bestTags['helmet'].probability) {
-									bestTags['helmet'] = prediction;
-								}
-							}
-						}
-					});
-
-					// Storing results
-					const store = {
-						bicycle: bestTags['bicycle'].tagName ? bestTags['bicycle'].tagName : 'No valid bicycle prediction',
-						helmet: bestTags['helmet'].tagName ? bestTags['helmet'].tagName : 'No valid helmet prediction'
-					};
-					if (store.bicycle === 'Santa Cruz Nomad 4') {
-						// Si el valor es 'Santa Cruz Nomad 4', se establece como 'santa_Cruz'
-						setStore({ bicycle: 'santa_Cruz' });
-					} else if (store.bicycle === 'Kona Process 153') {
-						// Si el valor es 'Kona Process 153', se establece como 'kona'
-						setStore({ bicycle: 'kona' });
-					} else if (store.bicycle === 'No valid bicycle prediction') {
-						// Si el valor es 'No valid bicycle prediction', se establece como 'custom'
-						setStore({ bicycle: 'custom' });
-					};
-
-					if (store.helmet === 'Scott Spartan') {
-						setStore({ helmet: 'scott' });
-					} else if (store.helmet === 'Troy Lee Stage') {
-						setStore({ helmet: 'troyLee' });
-					} else if (store.helmet === 'No valid bicycle prediction') {
-						setStore({ helmet: 'custom' });
-					};
-
-					// Log results
-					console.log('Store:', store);
-					console.log("helmet", getStore().helmet)
-					console.log("bicycle", getStore().bicycle)
-
+			
+					// Obtener las mejores predicciones
+					const bestBike = getHighestPrediction(bikePredictions);
+					const bestHelmet = getHighestPrediction(helmetPredictions);
+			
+					// Almacenar resultados en el estado
+					setStore({ bicycle: bestBike.tagName });
+					setStore({ helmet: bestHelmet.tagName });
+			
+					// Log resultados
+					console.log("Best Bike:", bestBike);
+					console.log("Best Helmet:", bestHelmet);
+			
 					const azureData = {
 						bicycle: getStore().bicycle,
 						helmet: getStore().helmet
 					};
-					// Return values find
+			
 					return azureData;
-
+			
 				} catch (error) {
 					console.error("Error en azurePrediction:", error);
 					return null; // Return null if error
 				}
-			},
+			};
+			
+			
+
+			// azurePredict: async (url) => {
+			// 	const myHeaders = new Headers();
+			// 	myHeaders.append("Prediction-Key", process.env.PREDICTION_KEY);
+			// 	myHeaders.append("Content-Type", "application/json");
+
+			// 	const raw = JSON.stringify({ "Url": url });
+
+			// 	const requestOptions = {
+			// 		method: "POST",
+			// 		headers: myHeaders,
+			// 		body: raw,
+			// 		redirect: "follow"
+			// 	};
+
+			// 	try {
+			// 		const response = await fetch(process.env.AZURE_URL, requestOptions);
+
+			// 		if (!response.ok) {
+			// 			throw new Error(`HTTP error! Status: ${response.status}`);
+			// 		}
+
+			// 		const data = await response.json();
+			// 		console.log("Azure response:", data);
+
+			// 		if (!data || !data.predictions) {
+			// 			throw new Error("Respuesta de Azure malformada. Falta 'predictions'.");
+			// 		}
+
+			// 		// Start values for each tag group
+			// 		let bestTags = {
+			// 			'bicycle': { tagName: "", probability: 0 },
+			// 			'helmet': { tagName: "", probability: 0 }
+			// 		};
+
+			// 		// Threshold for probability
+			// 		const probabilityThreshold = 0.90;
+
+			// 		// Read predictions
+			// 		data.predictions.forEach(prediction => { //forEach recorre el array
+			// 			if (prediction.probability > probabilityThreshold) { // se verifica si la probabilidad es superior al umbral 
+			// 				// Check and update best tag for bicycle category, confirmamos si contiene las palabras kona o santa cruz y lo convierte a minusculas (tolowerCase)
+			// 				if (prediction.tagName.toLowerCase().includes('santa cruz') || prediction.tagName.toLowerCase().includes('kona')) {
+			// 					if (prediction.probability > bestTags['bicycle'].probability) {
+			// 						bestTags['bicycle'] = prediction;
+			// 					}
+			// 				}
+
+			// 				// Check and update best tag for helmet category
+			// 				if (prediction.tagName.toLowerCase().includes('scott') || prediction.tagName.toLowerCase().includes('troy lee')) {
+			// 					if (prediction.probability > bestTags['helmet'].probability) {
+			// 						bestTags['helmet'] = prediction;
+			// 					}
+			// 				}
+			// 			}
+			// 		});
+
+			// 		// Storing results
+			// 		const store = {
+			// 			bicycle: bestTags['bicycle'].tagName ? bestTags['bicycle'].tagName : 'No valid bicycle prediction',
+			// 			helmet: bestTags['helmet'].tagName ? bestTags['helmet'].tagName : 'No valid helmet prediction'
+			// 		};
+			// 		if (store.bicycle === 'Santa Cruz Nomad 4') {
+			// 			// Si el valor es 'Santa Cruz Nomad 4', se establece como 'santaCruz'
+			// 			setStore({ bicycle: 'santaCruz' });
+			// 		} else if (store.bicycle === 'Kona Process 153') {
+			// 			// Si el valor es 'Kona Process 153', se establece como 'kona'
+			// 			setStore({ bicycle: 'kona' });
+			// 		} else if (store.bicycle === 'No valid bicycle prediction') {
+			// 			// Si el valor es 'No valid bicycle prediction', se establece como 'custom'
+			// 			setStore({ bicycle: 'custom' });
+			// 		};
+
+			// 		if (store.helmet === 'Scott Spartan') {
+			// 			setStore({ helmet: 'scott' });
+			// 		} else if (store.helmet === 'Troy Lee Stage') {
+			// 			setStore({ helmet: 'troyLee' });
+			// 		} else if (store.helmet === 'No valid bicycle prediction') {
+			// 			setStore({ helmet: 'custom' });
+			// 		};
+
+			// 		// Log results
+			// 		console.log('Store:', store);
+			// 		console.log("helmet", getStore().helmet)
+			// 		console.log("bicycle", getStore().bicycle)
+
+			// 		const azureData = {
+			// 			bicycle: getStore().bicycle,
+			// 			helmet: getStore().helmet
+			// 		};
+			// 		// Return values find
+			// 		return azureData;
+
+			// 	} catch (error) {
+			// 		console.error("Error en azurePrediction:", error);
+			// 		return null; // Return null if error
+			// 	}
+			// },
 
 			getRiderPhotos: async (bicycle, helmet) => {
 				// const data = await response.json()
@@ -336,6 +407,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();

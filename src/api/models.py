@@ -17,16 +17,28 @@ class PaymentMethods(enum.Enum):
     cash = "Cash"
 
 class Bikes(enum.Enum):
-    santa_Cruz = "Santa Cruz Nomad 4"
-    kona = "Kona Process 153"
-    canyon = "Canyon"
-    custom = "Custom"
+    santaCruz = "Bike Santa Cruz Nomad 4"
+    scNomad4Arena = "Bike Santa Cruz Nomad 4 Arena"
+    kona = "Bike Kona Process 153"
+    orbeaRallon = "Bike Orbea Rallon Morado-Azul"
+    summun21 = "Bike Mondraker Summun 21"
+    cannondaleJekyll2 = "Bike Canondale Jekyll 2"
+    trekSession = "Bike Trek Session"
+    V102017 = "Bike Santa Cruz V10 2017"
+    comSupV5 = "Bike Commencal Supremme V5"
+    customBike = "Custom bike"
 
 class Helmets(enum.Enum):
-    scott = "Scott Spartan"
-    troyLee = "Troy Lee Stage"
-    bluegrass = "Bluegrass"
-    custom = "Custom"
+    scott = "Helmet Scott Spartan"
+    troyLeeStage = "Helmet Troy Lee Stage"
+    bluegrassLegitIris = "Helmet Bluegrass Legit White Iridiscent"
+    bluegrassLegit = "Helmet Bluegrass Legit"
+    rampage = "Helmet Fox Rampage Azul"
+    rampagePro = "Helmet Fox Rampage Pro Carbon"
+    rampageCustomIbai = "Rampage Custom Ibai Rider"
+    pocCoron ="Helmet Poc Coron Air Negro"
+    cienStatus = "Helmet 100% Status Negro"
+    customHelmet = "Custom helmet"
 
 db = SQLAlchemy()
 
@@ -38,17 +50,21 @@ class User(db.Model):
     name = db.Column(db.String(120), nullable=False)
     surname = db.Column(db.String(120), nullable=False)
     role = db.Column(db.Enum(MyRoles), nullable=False, default = MyRoles.rider)
+    bike = db.Column(db.Enum(Bikes), nullable=False, default = Bikes.custom)
+    helmet = db.Column(db.Enum(Helmets), nullable=False, default = Helmets.custom)
 
     def __repr__(self):
         return '<Users %r>' % self.id
     
-    def new_user(self, username, password, email, name, surname, role):
+    def new_user(self, username, password, email, name, surname, role, bike, helmet):
         self.username = username
         self.password = password
         self.email = email
         self.name = name
         self.surname = surname
         self.role = role
+        self.bike = bike
+        self.helmet = helmet
         db.session.add(self)
         db.session.commit()
         
@@ -58,7 +74,9 @@ class User(db.Model):
             "email": self.email,
             "username": self.username,
             "name":self.name,
-            "surname": self.surname
+            "surname": self.surname,
+            "bike": self.bike,
+            "helmet": self.helmet 
         }
 
 class Order(db.Model):

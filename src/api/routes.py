@@ -15,7 +15,7 @@ import os
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
-CORS(api)
+CORS(api, resources={r"/*": {"origins": "*"}})
 
 ENDPOINT = os.getenv("AZURE_ENDPOINT", "https://westeurope.api.cognitive.microsoft.com/")
 project_id = os.getenv("AZURE_PROJECT_ID", "4a0d1a7e-a87e-43e2-838c-3eec869f5aeb")
@@ -45,6 +45,11 @@ def predict_image():
     response = jsonify({"msg": "Prediction completed"})
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response, 200
+
+# Endpoint to return a greeting message for getMessage function
+@api.route('/hello', methods=['GET'])
+def get_message():
+    return jsonify({"message": "Hello from the backend!"}), 200
 
 # Example of other existing routes
 
@@ -216,8 +221,6 @@ def get_photo(photo_id):
     }
 
     return jsonify(response_body, photo_info), 200
-
-
 
 
 @api.route('/photos/rider', methods = ['POST'])
