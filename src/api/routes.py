@@ -142,7 +142,9 @@ def register():
         username=request_body["username"],
         name = request_body["name"],
         surname = request_body["surname"],
-        role = request_body["role"]
+        role = request_body["role"],
+        bike=request_body["bike"],
+        helmet=request_body["helmet"]
     )
     db.session.add(user)
     db.session.commit()

@@ -93,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: "" })
 			},
 
-			register: async (email, password, username, name, surname, role) => {
+			register: async (email, password, username, name, surname, role, bike, helmet) => {
 				try {
 					let response = await fetch(process.env.BACKEND_URL + "api/register", {
 						method: "POST",
@@ -106,7 +106,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"username": username,
 							"name": name,
 							"surname": surname,
-							"role": role
+							"role": role,
+							"bike": bike,
+							"helmet": helmet
 						})
 					})
 
@@ -213,7 +215,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						prediction.tagName.toLowerCase().includes('Bike')
 					);
 					const helmetPredictions = data.predictions.filter(prediction => 
-						prediction.tagName.toLowerCase().includes('Helmet')
+						prediction.tagName.toLowerCase().includes('elmet')
 					);
 			
 					// Función para obtener el elemento con mayor probabilidad
@@ -247,7 +249,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error en azurePrediction:", error);
 					return null; // Return null if error
 				}
-			};
+			},
 			
 			
 

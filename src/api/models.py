@@ -50,8 +50,8 @@ class User(db.Model):
     name = db.Column(db.String(120), nullable=False)
     surname = db.Column(db.String(120), nullable=False)
     role = db.Column(db.Enum(MyRoles), nullable=False, default = MyRoles.rider)
-    bike = db.Column(db.Enum(Bikes), nullable=False, default = Bikes.custom)
-    helmet = db.Column(db.Enum(Helmets), nullable=False, default = Helmets.custom)
+    bike = db.Column(db.Enum(Bikes), nullable=False, default = Bikes.customBike)
+    helmet = db.Column(db.Enum(Helmets), nullable=False, default = Helmets.customHelmet)
 
     def __repr__(self):
         return '<Users %r>' % self.id
@@ -106,8 +106,8 @@ class Order(db.Model):
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(200), nullable=False)
-    bicycle = db.Column(db.Enum(Bikes), nullable=False, default = Bikes.custom)
-    helmet = db.Column(db.Enum(Helmets), nullable=False, default = Helmets.custom)
+    bicycle = db.Column(db.Enum(Bikes), nullable=False, default = Bikes.customBike)
+    helmet = db.Column(db.Enum(Helmets), nullable=False, default = Helmets.customHelmet)
     price = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete="CASCADE"), nullable=False)
 
