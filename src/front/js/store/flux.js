@@ -215,7 +215,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						prediction.tagName.toLowerCase().includes('Bike')
 					);
 					const helmetPredictions = data.predictions.filter(prediction => 
-						prediction.tagName.toLowerCase().includes('elmet')
+						prediction.tagName.toLowerCase().includes('Helmet')
 					);
 			
 					// Función para obtener el elemento con mayor probabilidad

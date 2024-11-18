@@ -88,34 +88,34 @@ const register = () => {
                     />
                 </div>
                 <div className='tag-container'>
-                    <label htmlFor="bike">Bike:</label>
-                    <select id="bike" value={bike} onChange={(e) => setBike(e.target.value)}>
+                    <label htmlFor="bicycle">Bicycle:</label>
+                    <select id="bicycle" value={bicycle} onChange={(e) => setBicycle(e.target.value)}>
                         <option value="">Which Bike is sending it?</option>
-                        <option value="Bike Santa Cruz Nomad 4">Santa Cruz Nomad 4</option>
-                        <option value="Bike Santa Cruz Nomad 4 Arena">Santa Cruz Nomad 4 Arena</option>
-                        <option value="Bike Kona Process 153">Kona Process 153</option>
-                        <option value="Bike Orbea Rallon Morado-Azul">Orbea Rallon Morado-Azul</option>
-                        <option value="Bike Mondraker Summun 21">Mondraker Summun 21</option>
-                        <option value="Bike Canondale Jekyll 2">Canondale Jekyll 2</option>
-                        <option value="Bike Trek Session">Trek Session</option>
-                        <option value="Bike Commencal Supremme V5">Commencal Supremme V5</option>
-                        <option value="Custom bike">Custom bike</option>
+                        <option value="santaCruz">Santa Cruz Nomad 4</option>
+                        <option value="scNomad4Arena">Santa Cruz Nomad 4 Arena</option>
+                        <option value="kona">Kona Process 153</option>
+                        <option value="orbeaRallon">Orbea Rallon Morado-Azul</option>
+                        <option value="summun21">Mondraker Summun 21</option>
+                        <option value="cannondaleJekyll2">Canondale Jekyll 2</option>
+                        <option value="trekSession">Trek Session</option>
+                        <option value="comSupV5">Commencal Supremme V5</option>
+                        <option value="customBike">Custom bike</option>
                     </select>
-                </div>  
+                </div>
                 <div className='tag-container'>
                     <label htmlFor="helmet">Helmet:</label>
                     <select id="helmet" value={helmet} onChange={(e) => setHelmet(e.target.value)}>
                         <option value="">Which Helmet protects our Bananer?</option>
-                        <option value="Helmet Scott Spartan">Scott Spartan</option>
-                        <option value="Helmet Troy Lee Stage">Troy Lee Stage</option>
-                        <option value="Helmet Bluegrass Legit">Bluegrass Legit</option>
-                        <option value="Helmet Bluegrass Legit White Iridiscent">Bluegrass Legit White Iridiscent</option>
-                        <option value="Helmet Fox Rampage Azul">Fox Rampage Azul</option>
-                        <option value="Helmet Fox Rampage Pro Carbon">Fox Rampage Pro Carbon</option>
-                        <option value="Helmet Fox Rampage Custom Ibai Rider">Fox Rampage Custom Ibai Rider</option>
-                        <option value="Helmet Poc Coron Air Negro">Poc Coron Air Negro</option>
-                        <option value="Helmet 100% Status Negro">100% Status Negro</option>
-                        <option value="Custom helmet">Custom helmet</option>
+                        <option value="scott">Scott Spartan</option>
+                        <option value="troyLeeStage">Troy Lee Stage</option>
+                        <option value="bluegrassLegit">Bluegrass Legit</option>
+                        <option value="bluegrassLegitWhiteIris">Bluegrass Legit White Iridiscent</option>
+                        <option value="rampage">Fox Rampage Azul</option>
+                        <option value="rampagePro">Fox Rampage Pro Carbon</option>
+                        <option value="rampageCustomIbai">Fox Rampage Custom Ibai Rider</option>
+                        <option value="pocCoron">Poc Coron Air Negro</option>
+                        <option value="cienStatus">100% Status Negro</option>
+                        <option value="customHelmet">Custom helmet</option>
                     </select>
                 </div>
                 <button type="submit">Register</button>

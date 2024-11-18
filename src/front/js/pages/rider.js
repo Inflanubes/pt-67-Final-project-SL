@@ -53,7 +53,6 @@ export const Rider = () => {
                         <option value="santaCruz">Santa Cruz Nomad 4</option>
                         <option value="scNomad4Arena">Santa Cruz Nomad 4 Arena</option>
                         <option value="kona">Kona Process 153</option>
-                        <option value="canyon">Canyon</option>
                         <option value="orbeaRallon">Orbea Rallon Morado-Azul</option>
                         <option value="summun21">Mondraker Summun 21</option>
                         <option value="cannondaleJekyll2">Canondale Jekyll 2</option>

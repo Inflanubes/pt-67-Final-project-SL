@@ -17,28 +17,28 @@ class PaymentMethods(enum.Enum):
     cash = "Cash"
 
 class Bikes(enum.Enum):
-    santaCruz = "Bike Santa Cruz Nomad 4"
-    scNomad4Arena = "Bike Santa Cruz Nomad 4 Arena"
-    kona = "Bike Kona Process 153"
-    orbeaRallon = "Bike Orbea Rallon Morado-Azul"
-    summun21 = "Bike Mondraker Summun 21"
-    cannondaleJekyll2 = "Bike Canondale Jekyll 2"
-    trekSession = "Bike Trek Session"
-    V102017 = "Bike Santa Cruz V10 2017"
-    comSupV5 = "Bike Commencal Supremme V5"
-    customBike = "Custom bike"
+    santaCruz = "santaCruz"  # Bike Santa Cruz Nomad 4
+    scNomad4Arena = "scNomad4Arena"  # Bike Santa Cruz Nomad 4 Arena
+    kona = "kona"  # Bike Kona Process 153
+    orbeaRallon = "orbeaRallon"  # Bike Orbea Rallon Morado-Azul
+    summun21 = "summun21"  # Bike Mondraker Summun 21
+    cannondaleJekyll2 = "cannondaleJekyll2"  # Bike Canondale Jekyll 2
+    trekSession = "trekSession"  # Bike Trek Session
+    V102017 = "V102017"  # Bike Santa Cruz V10 2017
+    comSupV5 = "comSupV5"  # Bike Commencal Supremme V5
+    customBike = "customBike"  # Custom Bike
 
 class Helmets(enum.Enum):
-    scott = "Helmet Scott Spartan"
-    troyLeeStage = "Helmet Troy Lee Stage"
-    bluegrassLegitIris = "Helmet Bluegrass Legit White Iridiscent"
-    bluegrassLegit = "Helmet Bluegrass Legit"
-    rampage = "Helmet Fox Rampage Azul"
-    rampagePro = "Helmet Fox Rampage Pro Carbon"
-    rampageCustomIbai = "Rampage Custom Ibai Rider"
-    pocCoron ="Helmet Poc Coron Air Negro"
-    cienStatus = "Helmet 100% Status Negro"
-    customHelmet = "Custom helmet"
+    scott = "scott"  # Helmet Scott Spartan
+    troyLeeStage = "troyLeeStage"  # Helmet Troy Lee Stage
+    bluegrassLegitIris = "bluegrassLegitWhiteIris"  # Helmet Bluegrass Legit White Iridiscent
+    bluegrassLegit = "bluegrassLegit"  # Helmet Bluegrass Legit
+    rampage = "rampage"  # Helmet Fox Rampage Azul
+    rampagePro = "rampagePro"  # Helmet Fox Rampage Pro Carbon
+    rampageCustomIbai = "rampageCustomIbai"  # Helmet Rampage Custom Ibai Rider
+    pocCoron = "pocCoron"  # Helmet Poc Coron Air Negro
+    cienStatus = "cienStatus"  # Helmet 100% Status Negro
+    customHelmet = "customHelmet"  # Custom Helmet
 
 db = SQLAlchemy()
 
