@@ -25,7 +25,7 @@ class Bikes(enum.Enum):
     cannondaleJekyll2 = "cannondaleJekyll2"  # Bike Canondale Jekyll 2
     trekSession = "trekSession"  # Bike Trek Session
     V102017 = "V102017"  # Bike Santa Cruz V10 2017
-    comSupV5 = "comSupV5"  # Bike Commencal Supremme V5
+    comSupV5 = "comSupV5"  # Bike Commencal Supremme V5 Ohlins Edition
     customBike = "customBike"  # Custom Bike
 
 class Helmets(enum.Enum):
@@ -35,7 +35,7 @@ class Helmets(enum.Enum):
     bluegrassLegit = "bluegrassLegit"  # Helmet Bluegrass Legit
     rampage = "rampage"  # Helmet Fox Rampage Azul
     rampagePro = "rampagePro"  # Helmet Fox Rampage Pro Carbon
-    rampageCustomIbai = "rampageCustomIbai"  # Helmet Rampage Custom Ibai Rider
+    rampageCustomIbai = "rampageCustomIbai"  # Helmet Fox Rampage Custom Ibai Rider
     pocCoron = "pocCoron"  # Helmet Poc Coron Air Negro
     cienStatus = "cienStatus"  # Helmet 100% Status Negro
     customHelmet = "customHelmet"  # Custom Helmet

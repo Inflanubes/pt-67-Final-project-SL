@@ -210,46 +210,74 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Respuesta de Azure malformada. Falta 'predictions'.");
 					}
 			
-					// Filtrar predicciones para bicicletas y cascos
-					const bikePredictions = data.predictions.filter(prediction => 
-						prediction.tagName.toLowerCase().includes('Bike')
-					);
-					const helmetPredictions = data.predictions.filter(prediction => 
-						prediction.tagName.toLowerCase().includes('Helmet')
-					);
-			
-					// Función para obtener el elemento con mayor probabilidad
-					const getHighestPrediction = (predictions) => {
-						if (predictions.length === 0) return { tagName: "Custom", probability: 0 };
-						return predictions.reduce((best, current) => 
-							current.probability > best.probability ? current : best
-						);
+					// Mapa para modelos de bicicletas y cascos
+					const bikeModels = {
+						"Bike Cannondale Jekyll 2": "cannondaleJekyll2",
+						"Bike Commencal Supreme V5 Ohlins Edition": "comSupV5",
+						"Bike Kona Process 153": "kona",
+						"Bike Mondraker Summun 21": "summun21",
+						"Bike Orbea Rallon Morado-Azul": "orbeaRallon",
+						"Bike Santa Cruz Nomad 4": "santaCruz",
+						"Bike Trek Session": "trekSession"
 					};
 			
-					// Obtener las mejores predicciones
-					const bestBike = getHighestPrediction(bikePredictions);
-					const bestHelmet = getHighestPrediction(helmetPredictions);
+					const helmetModels = {
+						"Helmet Scott Spartan": "scott",
+						"Helmet Fox Rampage Azul": "foxRampageAzul",
+						"Helmet Fox Rampage Custom Ibai Rider": "foxRampageCustom",
+						"Helmet Bluegrass Legit White Iridiscent": "bluegrassLegit",
+						"Helmet Fox Rampage Pro Carbon": "foxRampageProCarbon",
+						"Helmet Troy Lee Stage": "troyLee",
+						"Helmet Poc Coron Air Negro": "pocCoronAirNegro"
+					};
 			
-					// Almacenar resultados en el estado
-					setStore({ bicycle: bestBike.tagName });
-					setStore({ helmet: bestHelmet.tagName });
+					// Inicializar el mejor resultado para cada categoría
+					let bestTags = {
+						bicycle: { tagName: "", probability: 0 },
+						helmet: { tagName: "", probability: 0 }
+					};
 			
-					// Log resultados
-					console.log("Best Bike:", bestBike);
-					console.log("Best Helmet:", bestHelmet);
+					// Recorrer las predicciones para encontrar el mejor resultado por categoría
+					data.predictions.forEach(prediction => {
+						// Categoría bicicleta
+						if (prediction.tagName.toLowerCase().includes("bike")) {
+							if (prediction.probability > bestTags.bicycle.probability) {
+								bestTags.bicycle = prediction;
+							}
+						}
 			
+						// Categoría casco
+						if (prediction.tagName.toLowerCase().includes("helmet")) {
+							if (prediction.probability > bestTags.helmet.probability) {
+								bestTags.helmet = prediction;
+							}
+						}
+					});
+			
+					// Mapear los nombres de los modelos
+					const mappedBicycle = bikeModels[bestTags.bicycle.tagName] || "custom";
+					const mappedHelmet = helmetModels[bestTags.helmet.tagName] || "custom";
+			
+					// Almacenar los resultados finales
+					setStore({ bicycle: mappedBicycle, helmet: mappedHelmet });
+			
+					// Log de resultados
+					console.log("Bicycle:", mappedBicycle);
+					console.log("Helmet:", mappedHelmet);
+			
+					// Datos finales
 					const azureData = {
-						bicycle: getStore().bicycle,
-						helmet: getStore().helmet
+						bicycle: mappedBicycle,
+						helmet: mappedHelmet
 					};
 			
 					return azureData;
 			
 				} catch (error) {
 					console.error("Error en azurePrediction:", error);
-					return null; // Return null if error
+					return null; // Retornar null en caso de error
 				}
-			},
+			};
 			
 			
 
