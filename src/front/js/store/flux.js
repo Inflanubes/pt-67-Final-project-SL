@@ -277,7 +277,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error en azurePrediction:", error);
 					return null; // Retornar null en caso de error
 				}
-			};
+			},
 			
 			
 
