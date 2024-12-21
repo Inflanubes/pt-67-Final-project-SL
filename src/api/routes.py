@@ -24,6 +24,11 @@ publish_iteration_name = os.getenv("AZURE_ITERATION_NAME", "Iteration4")
 prediction_credentials = ApiKeyCredentials(in_headers={"Prediction-key": prediction_key})
 predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
 
+#Endpoint de prueba
+@api.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({"msg": "pong"}), 200
+
 # Function to run predictions
 def run_prediction(image_path):
     try:
@@ -36,7 +41,9 @@ def run_prediction(image_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# Example route to trigger prediction
+
+
+# Route to trigger prediction
 @api.route('/predict', methods=['POST'])
 def predict_image():
     data = request.get_json()
