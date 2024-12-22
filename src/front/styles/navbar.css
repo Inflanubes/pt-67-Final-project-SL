@@ -1,3 +1,19 @@
+/* ✅ Navbar Fijo */
+.navbar {
+    position: fixed; /* Fija el navbar en la parte superior */
+    top: 0; /* Alinea el navbar al borde superior */
+    left: 0; /* Asegura que comience desde el borde izquierdo */
+    width: 100%; /* Ocupa todo el ancho */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    background-color: rgb(255, 255, 255); /* Color de fondo */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  Sombra sutil */
+}
+
+/* ✅ Añadir Espacio al Contenido Principal */
+.navbar-space {
+    margin-top: 80px; /* Ajusta este valor al alto del navbar */
+}
+
 .navbar-container {
     display: flex;
     flex-direction: row;
@@ -16,6 +32,19 @@
     display: flex;
     flex-direction: row;
     align-items: end;
+}
+.navbar-logo {
+    height: 35px; /* Aumenta el tamaño de la imagen */
+    width: auto; /* Mantiene la proporción */
+    margin-bottom: 0.5rem; /* Espacio entre el logo y el texto */
+}
+/* ✅ Ajustar el Texto BEBANANA */
+.navbar-container-left h1 {
+    font-weight: bold; /* Negrita */
+    margin: 0; /* Elimina margen predeterminado */
+    padding: 0; /* Elimina relleno */
+    line-height: 1; /* Ajusta la altura de la línea */
+    align-self: flex-end; /* Alinea el texto con la base del contenedor */
 }
 .navbar-link{
     background-color: aliceblue;

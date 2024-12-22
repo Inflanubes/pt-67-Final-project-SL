@@ -27,8 +27,8 @@
 }
 
 .register-container label {
-    font-family:   Verdana;
-    font-weight: 200;
+    font-family: 'Lay Grotesk', sans-serif;
+    font-weight: 500;
     color: #fafaf9;
     width: 200%;
     text-align: start;
@@ -61,7 +61,8 @@
 }
 
 .register-container button {
-    font-family:   Verdana;
+    font-family: 'Lay Grotesk', sans-serif;
+    font-weight: 500;
     width: 100%;
     padding: 10px;
     background-color: #1313137f;

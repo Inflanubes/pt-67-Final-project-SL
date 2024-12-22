@@ -94,18 +94,19 @@ footer {
 body {
     margin: 0;
     padding: 0;
-    font-family: "Arial", sans-serif;
-    overflow-x: hidden; /* ✅ Evita el margen lateral */
+    font-family: 'Lay Grotesk', sans-serif;
+    font-weight: 500;
+    overflow-x: hidden;
 }
 
 /* ✅ Contenedor Principal */
 .home-container {
     position: relative;
-    overflow-x: hidden; /* ✅ Evita cualquier desbordamiento lateral */
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
-/* ✅ SECCIÓN DE IMAGEN COMPLETA */
+/* ✅ SECCIÓN DE IMAGEN COMPLETA (FONDO FIJO) */
 .full-image-section {
     width: 100%;
     height: 100vh;
@@ -113,13 +114,41 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed; /* ✅ Efecto Parallax */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
-    font-size: clamp(2rem, 5vw, 4rem); /* ✅ Tamaño de fuente adaptativo */
-    font-weight: bold; /* ✅ Negrita */
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* ✅ Animación para el título "BIENVENIDO" */
+.full-image-section h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: scale(0.5) translateY(50px);
+    animation: fadeInSlideUp 1.5s ease-out forwards;
+}
+
+/* ✅ Efecto Parallax para el Fondo 
+.full-image-section {
+    background-attachment: fixed;
+}*/
+
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ✅ Secciones Divididas */
@@ -128,8 +157,9 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    border: none;
-    overflow: hidden; /* ✅ Evita desbordamientos */
+    overflow: hidden;
+    position: relative;
+    z-index: 2; /* Encima del fondo */
 }
 
 /* ✅ Sincronizar Alturas */
@@ -154,15 +184,15 @@ body {
 }
 
 .split-content h2 {
-    font-size: clamp(1.5rem, 4vw, 3rem); /* ✅ Adaptativo para pantallas grandes y tablets */
-    font-weight: bold; /* ✅ Negrita */
-    white-space: nowrap; /* ✅ Evita que se corte en tablets */
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: bold;
+    white-space: nowrap;
     text-align: center;
     margin: 0.5rem 0;
 }
 
 .split-content p {
-    font-size: clamp(1rem, 2vw, 1.2rem); /* ✅ Ajusta el tamaño del párrafo */
+    font-size: clamp(1rem, 2vw, 1.2rem);
     max-width: 90%;
 }
 
@@ -181,7 +211,7 @@ body {
 
 /* ✅ Animación de Títulos */
 .title {
-    font-size: clamp(1.5rem, 4vw, 3rem); /* ✅ Tamaño ajustable */
+    font-size: clamp(1.5rem, 4vw, 3rem);
     font-weight: bold;
     opacity: 0;
     transform: scale(0.5) translateY(50px);
@@ -196,6 +226,13 @@ body {
 /* ✅ Alternar Sección */
 .reverse {
     flex-direction: row-reverse;
+}
+
+/* ✅ Efecto de Fondo Sincronizado con Scroll */
+.home-container {
+    background-attachment: fixed; /* ✅ Asegura el efecto Parallax */
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* ✅ RESPONSIVE DESIGN */
@@ -237,15 +274,10 @@ body {
     }
 
     .split-content h2 {
-        font-size: 1.5rem; /* ✅ Asegura legibilidad */
+        font-size: 1.5rem;
     }
 
     .split-content p {
         font-size: 0.9rem;
     }
-
-    body {
-        overflow-x: hidden; /* ✅ Forzar sin desbordamientos */
-    }
 }
-

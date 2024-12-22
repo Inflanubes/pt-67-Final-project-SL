@@ -24,7 +24,7 @@ export const Navbar = () => {
 			<div className="navbar-container">
 				<div className="navbar-container-left">
 					<Link to="/">
-						<img src={"https://res.cloudinary.com/dflvexboa/image/upload/v1731593806/Branding/dxwv7fpt2wsnbgbb3yv7.png"} alt="Be Banana Logo" style={{ height: "33px" }} className="navbar-logo mb-0 h1" />
+						<img src={"https://res.cloudinary.com/dflvexboa/image/upload/v1731593806/Branding/dxwv7fpt2wsnbgbb3yv7.png"} alt="Be Banana Logo" className="navbar-logo mb-0 h1" />
 					</Link>
 					<h1>BEBANANA</h1>
 				</div>

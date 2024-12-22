@@ -22,7 +22,8 @@
 }
 
 .login-container label {
-    font-family:   Verdana;
+    font-family: 'Lay Grotesk', sans-serif;
+    font-weight: 500;
     color: #fafaf9;
     width: 100%;
     text-align: center;
@@ -45,7 +46,8 @@
 }
 
 .login-container button {
-    font-family:   Verdana;
+    font-family: 'Lay Grotesk', sans-serif;
+    font-weight: 500;
     width: 100%;
     padding: 10px;
     background-color: #1313137f;
