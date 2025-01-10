@@ -1,0 +1,58 @@
+/* ContentSection.css */
+
+main {
+  margin-top: 100px; /* Adjust for fixed header */
+}
+
+.content-section {
+  display: flex;
+  height: 100vh;
+  align-items: flex-start;
+  justify-content: space-between; /* Ensures left and right alignment */
+  position: relative;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Make the image taller than the section */
+  background-size: cover;
+  background-position: top; /* Start at the top of the image */
+  transition: transform 0.3s ease-out;
+  z-index: 1;
+}
+
+.text-box {
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 50%; /* Set width to half the section */
+  height: 92%; /* Slightly smaller than the section height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.text-box h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.text-box.left {
+  margin-left: 0; /* Align to the left */
+}
+
+.text-box.right {
+  margin-left: auto; /* Push to the right */
+  margin-right: 0;
+}
+
+.content-section + .content-section {
+  margin-top: -8vh; /* Overlap slightly to create a grid effect */
+}

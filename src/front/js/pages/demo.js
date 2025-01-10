@@ -1,40 +1,44 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
+// ContentSection.js
+import React, { useEffect, useState } from "react";
+import "../../styles/contentSection.css";
 
 export const Demo = () => {
-	const { store, actions } = useContext(Context);
+  const [scrollY, setScrollY] = useState(0);
 
-	return (
-		<div className="container">
-			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-			<br />
-			<Link to="/">
-				<button className="btn btn-primary">Back home</button>
-			</Link>
-		</div>
-	);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const sections = [
+    { id: "section1", text: "Sección 1", image: "https://res.cloudinary.com/dflvexboa/image/upload/v1724270545/egwv0sfqe5aa0qmydqna.png" },
+    { id: "section2", text: "Sección 2", image: "https://res.cloudinary.com/dflvexboa/image/upload/v1724270545/egwv0sfqe5aa0qmydqna.png" },
+    { id: "section3", text: "Sección 3", image: "https://res.cloudinary.com/dflvexboa/image/upload/v1724270545/egwv0sfqe5aa0qmydqna.png" },
+  ];
+
+  return (
+    <main>
+      {sections.map((section, index) => (
+        <div key={section.id} className="content-section">
+          <div
+            className="background"
+            style={{
+              backgroundImage: `url(${section.image})`,
+              transform: `translateY(${(scrollY - index * window.innerHeight) * 0.2}px)`
+            }}
+          ></div>
+          <div className={`text-box ${index % 2 === 0 ? "left" : "right"}`}>
+            <h2>{section.text}</h2>
+          </div>
+        </div>
+      ))}
+    </main>
+  );
 };
+
+
+  export default Demo;
