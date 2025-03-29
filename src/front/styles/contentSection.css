@@ -56,3 +56,15 @@ main {
 .content-section + .content-section {
   margin-top: -8vh; /* Overlap slightly to create a grid effect */
 }
+
+/* ✅ Animación para el título "BIENVENIDO" */
+.full-image-section h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: scale(0.5) translateY(50px);
+  animation: fadeInSlideUp 1.5s ease-out forwards;
+}
+

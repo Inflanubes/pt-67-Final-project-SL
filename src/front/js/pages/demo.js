@@ -1,9 +1,10 @@
 // ContentSection.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../../styles/contentSection.css";
 
 export const Demo = () => {
   const [scrollY, setScrollY] = useState(0);
+  const backgroundRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,7 @@ export const Demo = () => {
 
   return (
     <main>
+
       {sections.map((section, index) => (
         <div key={section.id} className="content-section">
           <div

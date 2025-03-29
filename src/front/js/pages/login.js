@@ -43,11 +43,11 @@ const login = () => {
                     />
                 </div>
                 <button type="submit">Login</button>
-                {/*   <Link to="/register">
+                {   <Link to="/register">
                     <span className="register-button btn btn-lg" href="#" role="button">
                         Register here if you are not a Banananer yet
                     </span>
-                </Link> */}
+                </Link> }
             </form>
         </div>
     );

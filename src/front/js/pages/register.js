@@ -88,8 +88,8 @@ const register = () => {
                     />
                 </div>
                 <div className='tag-container'>
-                    <label htmlFor="bicycle">Bicycle:</label>
-                    <select id="bicycle" value={bicycle} onChange={(e) => setBicycle(e.target.value)}>
+                    <label htmlFor="bike">Bicycle:</label>
+                    <select id="bike" value={bike} onChange={(e) => setBicycle(e.target.value)}>
                         <option value="">Which Bike is sending it?</option>
                         <option value="santaCruz">Santa Cruz Nomad 4</option>
                         <option value="scNomad4Arena">Santa Cruz Nomad 4 Arena</option>

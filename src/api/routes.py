@@ -15,7 +15,7 @@ import os
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
-CORS(api, resources={r"/*": {"origins": "*"}})
+CORS(api, resources={r"/*": {"origins": "https://turbo-space-umbrella-wrv95qvrv7gg3v44g-3000.app.github.dev"}})
 
 ENDPOINT = os.getenv("AZURE_ENDPOINT", "https://westeurope.api.cognitive.microsoft.com/")
 project_id = os.getenv("AZURE_PROJECT_ID", "4a0d1a7e-a87e-43e2-838c-3eec869f5aeb")
@@ -23,6 +23,24 @@ prediction_key = os.getenv("AZURE_PREDICTION_KEY", "60094dce53474cc681efc9b47446
 publish_iteration_name = os.getenv("AZURE_ITERATION_NAME", "Iteration4")
 prediction_credentials = ApiKeyCredentials(in_headers={"Prediction-key": prediction_key})
 predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
+
+# Añadir encabezados de CORS para todas las respuestas del blueprint
+@api.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "https://turbo-space-umbrella-wrv95qvrv7gg3v44g-3000.app.github.dev")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+    response.headers.add("Access-Control-Allow-Credentials", "true")  # Opcional si usas cookies/sesiones
+    return response
+
+@api.route('/<path:path>', methods=['OPTIONS'])
+def options(path):
+    response = jsonify({"msg": "CORS preflight handled"})
+    response.headers.add("Access-Control-Allow-Origin", "https://turbo-space-umbrella-wrv95qvrv7gg3v44g-3000.app.github.dev")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    return response
 
 #Endpoint de prueba
 @api.route('/ping', methods=['GET'])
@@ -41,8 +59,6 @@ def run_prediction(image_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-
-
 # Route to trigger prediction
 @api.route('/predict', methods=['POST'])
 def predict_image():
@@ -53,10 +69,13 @@ def predict_image():
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response, 200
 
+#FUNCION API/HELLO COMENTAADA PARA SOLUCIONAR ERROR 
 # Endpoint to return a greeting message for getMessage function
-@api.route('/hello', methods=['GET'])
-def get_message():
-    return jsonify({"message": "Hello from the backend!"}), 200
+#@api.route('/hello', methods=['GET'])
+#def get_message():
+#    response = jsonify({"msg": "Hello from the backend!"})
+#    response.headers['Access-Control-Allow-Origin'] = '*'
+#    return response, 200
 
 # Example of other existing routes
 
@@ -118,14 +137,15 @@ def login():
     email = request.json.get('email', None)
     password = request.json.get('password', None)
     users_query = User.query.filter_by(email=email).first()
-    is_valid = check_password_hash(users_query.password, password) 
+    try: 
+        is_valid = check_password_hash(users_query.password, password) 
+    except: 
+        return jsonify({"msg": "Password not encrypted"}), 401
     print(email, password, is_valid)
     if not users_query:
         return jsonify({"msg": "The username doesn't exist"}), 402
     if is_valid == False:
         return jsonify({"msg": "Bad username or password"}), 401
-    # if email != users_query.email or not is_valid:
-    #     return jsonify({"msg": "Bad username or password"}), 401
  
     additional_claims = {
         "user_id" : users_query.id,
@@ -138,9 +158,18 @@ def login():
 @api.route('/register', methods=['POST'])
 def register():
     request_body = request.get_json()
-    hashed_password = generate_password_hash(request_body["password"]).decode('utf-8')
+        # Verificar si faltan campos
+    required_fields = ["username", "email", "password", "name", "surname", "role", "bike", "helmet"]
+    missing_fields = [field for field in required_fields if field not in request_body]
+    
+    if missing_fields:
+        return jsonify({"msg": f"Missing fields: {', '.join(missing_fields)}"}), 400
+    
+
     if User.query.filter_by(email=request_body["email"]).first():
         return jsonify({"msg": "Email already exists"}), 409
+    
+    hashed_password = generate_password_hash(request_body["password"]).decode('utf-8')
     
     user = User()
     user.new_user(
@@ -163,7 +192,7 @@ def register():
     }
 
     access_token = create_access_token(identity=request_body["email"], additional_claims=additional_claims)
-    return jsonify(access_token=access_token, role=user.role.value, user=user.id), 200
+    return jsonify(message="User created successfully!",access_token=access_token, role=user.role.value, user=user.id), 200
 
 @api.route('/users/<int:user_id>', methods=['DELETE'])
 @jwt_required()

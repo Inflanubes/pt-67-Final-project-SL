@@ -32,7 +32,7 @@ export const Home = () => {
                     }
                 });
             },
-            { threshold: 0.5 }
+            { threshold: 0.6 }
         );
 
         if (riderTitleRef.current) observer.observe(riderTitleRef.current);
